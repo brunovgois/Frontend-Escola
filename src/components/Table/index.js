@@ -11,7 +11,7 @@ import Search from '@material-ui/icons/Search';
 import DeleteOutline from '@material-ui/icons/DeleteOutline'
 
 
-export default function Table(props){
+export default function Table(props) {
 
     const tableIcons = {
         Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
@@ -25,7 +25,7 @@ export default function Table(props){
     
       };
 
-    return(
+  return (
       <MaterialTable
         title={props.title}
         icons={tableIcons}
@@ -35,7 +35,7 @@ export default function Table(props){
           {
             icon: DeleteOutline,
             tooltip: `Deletar ${props.deleteTooltip}`,
-            onClick: (event, rowData) => window.confirm(`Deletar ${rowData.name}?`),
+          onClick: (event, rowData) => props.handleDelete(rowData.id)
           }
         ]}
         options={{
