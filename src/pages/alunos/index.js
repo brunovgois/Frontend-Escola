@@ -51,6 +51,15 @@ export default function Alunos() {
     })
   }
 
+  const handleUpdate = (updatedData) => {
+    axios.put(`aluno/${updatedData.id}`, {
+      name: updatedData.name,
+      classe: updatedData.classe
+    }).then((response) => {
+      setAlunos(...alunos.content, response.data)
+    })
+  }
+
   const handleNameChange = (e) => {
     setStudentName(e.target.value)
   }
@@ -109,6 +118,7 @@ export default function Alunos() {
         tooltip={"aluno"}
         handleDelete={handleDelete}
         handleAdd={handleClickOpen}
+        handleUpdate={handleUpdate}
       />
     </div>
   )

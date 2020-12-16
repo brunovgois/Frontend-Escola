@@ -10,7 +10,8 @@ import LastPage from '@material-ui/icons/LastPage';
 import Search from '@material-ui/icons/Search';
 import DeleteOutline from '@material-ui/icons/DeleteOutline'
 import AddIcon from '@material-ui/icons/Add';
-
+import Edit from '@material-ui/icons/Edit';
+import Check from '@material-ui/icons/Check';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 
 export default function Table(props) {
@@ -25,6 +26,9 @@ export default function Table(props) {
     Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
     ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
     SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
+    Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+    Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+    Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
   };
 
   return (
@@ -33,6 +37,13 @@ export default function Table(props) {
       icons={tableIcons}
       columns={props.columns}
       data={props.data}
+      editable={{
+        onRowUpdate: (newData, oldData) =>
+          new Promise((resolve, reject) => {
+            props.handleUpdate(newData)
+            resolve()
+          }),
+      }}
       actions={[
         {
           icon: DeleteOutline,
