@@ -12,6 +12,9 @@ export default function Header() {
           <li>
             <Link to="/alunos" className="header-links">Alunos</Link>
           </li>
+          <li>
+            <Link to="/mentores" className="header-links">Mentores </Link>
+          </li>
         </ul>
       </nav>
     </header>

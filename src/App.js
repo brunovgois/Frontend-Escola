@@ -7,9 +7,10 @@ import {
 import { Fragment } from 'react'
 
 import Home from "./pages/home"
-import Alunos from "./pages/alunos"
-import Header from "./components/Header"
+import Aluno from "./pages/aluno"
+import Mentor from "./pages/mentor"
 
+import Header from "./components/Header"
 export default function App() {
   return(
   <Router>
@@ -17,7 +18,8 @@ export default function App() {
       <Route path="/" exact component={Home} />
       <Fragment>
         <Header />
-        <Route path="/alunos" component={Alunos} />
+        <Route path="/alunos" component={Aluno} />
+        <Route path="/mentores" component={Mentor} />
       </Fragment>
     </Switch>
   </Router>
