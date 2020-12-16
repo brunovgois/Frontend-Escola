@@ -13,18 +13,17 @@ import "./index.css"
 
 export default function Alunos() {
 
-  const [alunos, setAlunos] = useState({})
-
+  const [alunos, setAlunos] = useState([{}])
   const [open, setOpen] = useState(false)
-
   const [studentName, setStudentName] = useState("")
   const [studentClass, setStudentClass] = useState("")
 
+  const fetchData = async () => {
+    const result = await axios.get('/aluno');
+    setAlunos(result.data)
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios.get('/aluno');
-      setAlunos(result.data)
-    };
     fetchData();
   }, [])
 
@@ -37,17 +36,19 @@ export default function Alunos() {
   const handleDelete = (alunoId) => {
     axios.delete(`aluno/${alunoId}`).then(() => {
       const updatedAlunosList = alunos.content.filter(aluno => aluno.id !== alunoId)
-
       setAlunos(updatedAlunosList)
+      fetchData() //tempfix
     })
   }
+
   const handleCreate = () => {
     axios.post('aluno', {
       name: studentName,
       classe: studentClass
     }).then((response) => {
-      setAlunos(...alunos.content, response.data)
+      setAlunos([...alunos.content, response.data])
       setOpen(false);
+      fetchData()//tempfix
     })
   }
 
@@ -57,6 +58,7 @@ export default function Alunos() {
       classe: updatedData.classe
     }).then((response) => {
       setAlunos(...alunos.content, response.data)
+      fetchData()//tempfix
     })
   }
 
@@ -68,7 +70,7 @@ export default function Alunos() {
     setStudentClass(e.target.value)
   }
 
-  const handleClickOpen = () => {
+  const handleOpenAddStudentDialog = () => {
     setOpen(true);
   };
 
@@ -117,7 +119,7 @@ export default function Alunos() {
         data={alunos.content}
         tooltip={"aluno"}
         handleDelete={handleDelete}
-        handleAdd={handleClickOpen}
+        handleAdd={handleOpenAddStudentDialog}
         handleUpdate={handleUpdate}
       />
     </div>
